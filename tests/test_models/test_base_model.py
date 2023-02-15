@@ -5,8 +5,9 @@ import unittest
 
 
 class Base_test(unittest.TestCase):
-    pass
+    """ Test methods for the base class """
+    def test_save(self):
+        pass
 
-
-if __main__ == "__main__":
-    unittest.main()
+    def test_to_json(self):
+        pass
