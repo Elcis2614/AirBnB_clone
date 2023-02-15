@@ -4,7 +4,7 @@
 import unittest
 
 
-class testEngine(unittest.TestCases):
+class testEngine(unittest.TestCase):
     """ Tests methods """
     def test_one(self):
         """ First testing method"""
