@@ -6,8 +6,6 @@ import unittest
 
 class TestState(unittest.TestCase):
     """ Contains methods to perform the tests"""
-    pass
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_save(self):
+        """Test the save method"""
+        pass

@@ -6,8 +6,6 @@ import unittest
 
 class TestCity(unittest.TestCase):
     """ Methods for the tests"""
-    pass
-
-
-if __name__ == "__main()__":
-    unittest.main()
+    def test_save(self):
+        """ tests the save method """
+        pass
