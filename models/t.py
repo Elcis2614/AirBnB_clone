@@ -1,3 +1,4 @@
 #!/usr/bin/python3
-def f(s):
-    print(s)
+a = "salut"
+if (type(a) == str):
+    print("COrrect")

@@ -3,7 +3,7 @@
 
 
 import uuid
-import datetime as d
+from datetime import datetime as d
 
 
 class BaseModel():
@@ -12,16 +12,31 @@ class BaseModel():
     id_list = []
 
     def __init__(self):
-        while (true):
-            u_id = uuid.uuid4()
-            if (u_id not in id_list):
-                id_list.append(u_id)
+        while (True):
+            u_id = str(uuid.uuid4())
+            if (u_id not in BaseModel.id_list):
+                BaseModel.id_list.append(u_id)
                 self.id = u_id
                 break
-        self.created_at = d.date.today
-        self.updated_at.append(d.date.today)
+        self.created_at = d.now().isoformat("T")
+        self.updated_at = d.now().isoformat("T")
+
+    def __str__(self):
+        """This method print the object of the class as [<class name>] (<self.id>) <self.__dict__>"""
+        return "[{}] ({}) {}".format(self.__class__.__name__,self.id, self.__dict__)
 
     def save(self):
-        """This method saves the baseModel object """
+        """ updates the public instance attribute updated_at with the current datetime """
+        self.updated_at = d.now().isoformat("T")
+
+    def to_dict(self):
+        """ returns a dictionary containing all keys/values of __dict__ in a given format and adds the key "class" """
+        newDic = self.__dict__
+        newDic['__class__'] = self.__class__.__name__
+        return newDic
+
+    def to_dic(self):
+        pass
+
     def to_json(self):
         """ Converts the objects to json object """
