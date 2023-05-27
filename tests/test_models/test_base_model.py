@@ -12,6 +12,10 @@ class Base_test(unittest.TestCase):
         self.base1 = BaseModel()
         self.base2 = BaseModel()
 
+    def test_id(self):
+        """ Tests if the id provided is unique """
+        self.assertTrue(type(self.base1.id) == str)
+
     def tearDown(self):
         """ Built in method to delete the basemodel object created """
         del(self.base1)
