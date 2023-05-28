@@ -28,7 +28,7 @@ class BaseModel():
 
     def save(self):
         """ updates the public instance attribute updated_at with the current datetime """
-        self.updated_at = d.now().isoformat("T")
+        self.updated_at = d.now()
 
     def to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__ in a given format and adds the key "class" """

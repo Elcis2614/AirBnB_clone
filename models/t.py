@@ -1,4 +1,8 @@
 #!/usr/bin/python3
-a = "salut"
-if (type(a) == str):
-    print("COrrect")
+from base_model import BaseModel
+
+bm = BaseModel()
+bm.save()
+print(type(bm.updated_at))
+d_json = bm.to_dict()
+print(type(d_json['updated_at']))
