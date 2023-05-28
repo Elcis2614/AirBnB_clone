@@ -37,10 +37,6 @@ class BaseModel():
         newDic['created_at'] = self.created_at.isoformat("T")
         newDic['updated_at'] = self.updated_at.isoformat("T")
         return newDic
-    
-
-    def to_dic(self):
-        pass
 
     def to_json(self):
         """ Converts the objects to json object """
