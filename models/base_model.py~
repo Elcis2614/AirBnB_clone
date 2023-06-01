@@ -10,24 +10,32 @@ from datetime import datetime as d
 class BaseModel():
     """ This is the parent class of all the classes of this project """
 
+    id_list = []
+
     def __init__(self, *args, **kwargs):
         
-        if kwargs:
-            if (set(kwargs) == set(["id", "created_at","updated_at", "__class__"])): 
-                if(kwargs["__class__"] == "BaseModel"): 
+        if (kwargs and not args):
+            if (set(kwargs) == set(["id", "created_at", "updated_at", "__class__"])):
+                if(kwargs["__class__"] == "BaseMode" and kwargs["id"] not in BaseModel.id_list):
                     self.id = kwargs["id"]
-                    self.created_at = d.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
-                    self.updated_at = d.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                    BaseModel.id_list.apppend(kwargs["id"])
+                    self.created_at = d.strptime(kwargs["created_at"], '%Y-%m-%dT%H:%M:%S.%f')
+                    self.updated_at = d.strptime(kwargs["updated_at"], '%Y-%m-%dT%H:%M:%S.%f')
 
-                else:
-                    raise TypeError("Wrong class name")    
+                elif (kwargs['__class__:'] != "BaseMode"):
+                    raise TypeError("Wrong class name")
+                else :
+                    raise ValueError("The id already exists")
             else :
                 raise ValueError("Invalid Dictionary")
 
-        elif not (kwargs or args) :
-            self.id = str(uuid.uuid4())
-            self.created_at = d.now()
-            self.updated_at = d.now()
+        elif not (kwargs or args):
+            u_id = str(uuid.uuid4())
+            if (u_id not in BaseModel.id_list):
+                BaseModel.id_list.append(u_id)
+                self.id = u_id
+                self.created_at = d.now()
+                self.updated_at = d.now()
 
         else :
             raise ValueError("invalid argument type")
@@ -42,8 +50,8 @@ class BaseModel():
 
     def to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__ in a given format and adds the key "class" """
-        newDic = self.__dict__.copy()
-        newDic['__class__'] = "BaseModel"
+        newDic = self.__dict__
+        newDic['__class__'] = self.__class__.__name__
         newDic['created_at'] = self.created_at.isoformat("T")
         newDic['updated_at'] = self.updated_at.isoformat("T")
         return (newDic)
