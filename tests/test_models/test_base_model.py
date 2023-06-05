@@ -19,7 +19,9 @@ class Base_test(unittest.TestCase):
         self.assertTrue(type(self.base1) == BaseModel)
         self.assertIsInstance(storage, FileStorage)
 
+        #storage is in the dictionary
         self.assertIn("BaseModel.{}".format(self.base1.id), storage.all())
+
         
         #making sure the file is loaded in __object
         if isfile(FileStorage._FileStorage__file_path) :

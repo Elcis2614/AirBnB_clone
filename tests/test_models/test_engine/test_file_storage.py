@@ -6,7 +6,6 @@ from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from os.path import isfile
 
-
 class testEngine(unittest.TestCase):
     """ Tests methods """
     
@@ -25,14 +24,16 @@ class testEngine(unittest.TestCase):
 
         #the new() method sets the correct object in __object
         instanceBaseM = BaseModel()
+        dictBaseM =  self.instance1.all()
         key = "BaseModel.{}".format(instanceBaseM.id)
-        self.assertIn(key, self.instance1.all())
+        self.assertIn(key, dictBaseM)
+        self.assertEqual(dictBaseM[key], instanceBaseM.to_dict())
 
         #the save() method 
         if isfile(FileStorage._FileStorage__file_path):
             self.instance1.save()
             with open(FileStorage._FileStorage__file_path,'r', encoding = 'utf-8') as mFile:
-                #the save() method() saved a string in the file
+                #the save() method saved a string in the file
                 if (self.instance1.all() != []):
                     self.assertIsNotNone(mFile.read())
 
