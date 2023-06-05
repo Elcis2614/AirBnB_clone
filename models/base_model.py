@@ -5,7 +5,7 @@
 import uuid
 
 from datetime import datetime as d
-
+from models import storage
 
 class BaseModel():
     """ This is the parent class of all the classes of this project """
@@ -28,6 +28,7 @@ class BaseModel():
             self.id = str(uuid.uuid4())
             self.created_at = d.now()
             self.updated_at = d.now()
+            storage.new(self)
 
         else :
             raise ValueError("invalid argument type")
@@ -39,6 +40,7 @@ class BaseModel():
     def save(self):
         """ updates the public instance attribute updated_at with the current datetime """
         self.updated_at = d.now()
+        storage.save()
 
     def to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__ in a given format and adds the key "class" """

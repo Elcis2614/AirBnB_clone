@@ -1,8 +1,11 @@
 """ This file contains the test class for the base model """
 
 import unittest
+from models import storage
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 from datetime import datetime
+from os.path import isfile
 
 class Base_test(unittest.TestCase):
     """ Test methods for the base class """
@@ -12,13 +15,20 @@ class Base_test(unittest.TestCase):
         self.base1 = BaseModel()
 
     def test_init(self):
-        """ This method tests the initialization of  a basemodel object """
+        """ This method tests the initialization of the models module and of the basemodel object """
         self.assertTrue(type(self.base1) == BaseModel)
+        self.assertIsInstance(storage, FileStorage)
+
+        self.assertIn("BaseModel.{}".format(self.base1.id), storage.all())
+        
+        #making sure the file is loaded in __object
+        if isfile(FileStorage._FileStorage__file_path) :
+            self.assertIsNotNone(FileStorage._FileStorage__objects)
 
         #making sure a non-keyed argument does not initialize an object
         with self.assertRaises(ValueError):
             BaseModel('one','two', 'three')
-            
+
         #making sure a dictionary obtained from another object's to_dict method can initialize
         w = self.base1.to_dict()
         instance2 = BaseModel(**w)
@@ -51,6 +61,11 @@ class Base_test(unittest.TestCase):
         """Tests the save method of the baseclass test """
         self.base1.save()
         self.assertNotEqual(self.base1.updated_at, self.base1.created_at)
+        try :
+            with open(FileStorage._FileStorage__file_path, 'r', encoding = 'utf-8') as mFile:
+                self.assertIsNotNone(mFile.read())
+        except FileNotFoundError :
+            pass
 
     def test_to_dict(self):
         """ Tests the to_dic method """
