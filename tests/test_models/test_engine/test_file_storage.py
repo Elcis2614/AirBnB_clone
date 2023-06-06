@@ -27,7 +27,7 @@ class testEngine(unittest.TestCase):
         dictBaseM =  self.instance1.all()
         key = "BaseModel.{}".format(instanceBaseM.id)
         self.assertIn(key, dictBaseM)
-        self.assertEqual(dictBaseM[key], instanceBaseM.to_dict())
+        self.assertTrue(dictBaseM[key] == instanceBaseM)
 
         #the save() method 
         if isfile(FileStorage._FileStorage__file_path):
@@ -38,7 +38,8 @@ class testEngine(unittest.TestCase):
                     self.assertIsNotNone(mFile.read())
 
         #the reload() method opens the file incase it exists but doesnt do anything incase the file is not present
-        FileStorage._FileStorage__objects = []
         self.instance1.reload()
-        self.assertIsNotNone(self.instance1.all())
-        
+        objects = self.instance1.all()
+        self.assertIsNotNone(objects)
+        for obj_id in objects:
+            self.assertIsInstance(objects[obj_id], BaseModel)
