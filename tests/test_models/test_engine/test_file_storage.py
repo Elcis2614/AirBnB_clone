@@ -18,18 +18,20 @@ class testEngine(unittest.TestCase):
         self.assertTrue(type(FileStorage._FileStorage__objects) == dict)
         pass
 
-    def test_methods(self): 
-        #the all() method return a dictionary
+    def test_methods(self):
+        """ the all() method return a dictionary """
         self.assertIsInstance(self.instance1.all(), dict)
 
-        #the new() method sets the correct object in __object
+    def test_mew(self) :
+        """ the new() method sets the correct object in __object """
         instanceBaseM = BaseModel()
         dictBaseM =  self.instance1.all()
         key = "BaseModel.{}".format(instanceBaseM.id)
         self.assertIn(key, dictBaseM)
         self.assertTrue(dictBaseM[key] == instanceBaseM)
 
-        #the save() method 
+    def test_save(self):
+        """ the save() method """
         if isfile(FileStorage._FileStorage__file_path):
             self.instance1.save()
             with open(FileStorage._FileStorage__file_path,'r', encoding = 'utf-8') as mFile:
@@ -37,7 +39,9 @@ class testEngine(unittest.TestCase):
                 if (self.instance1.all() != []):
                     self.assertIsNotNone(mFile.read())
 
-        #the reload() method opens the file incase it exists but doesnt do anything incase the file is not present
+
+    def test_reload(self):
+        """the reload() method opens the file incase it exists but doesnt do anything incase the file is not present"""
         self.instance1.reload()
         objects = self.instance1.all()
         self.assertIsNotNone(objects)
