@@ -3,7 +3,5 @@ eg: the basemodel  is the base class (parent class) to all othe classes created 
 """
 from models.engine.file_storage import FileStorage
 
-
-
 storage = FileStorage()
 storage.reload()

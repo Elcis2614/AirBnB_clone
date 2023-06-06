@@ -38,17 +38,6 @@ class Base_test(unittest.TestCase):
 
         #making sure that created_at and updated_at are of datetime type on creation
         self.assertTrue(type(instance2.created_at) == type(instance2.updated_at) == datetime)
-        
-        #the dictionary is of the correct __class__ key before initialization
-        wrongDict = instance2.to_dict()
-        wrongDict['__class__'] = "Not basemodel"
-        with self.assertRaises(TypeError):
-            instance = BaseModel(**wrongDict)
-
-        #the dictonary has all the keys needed:
-        wrongDict.pop('__class__', None)
-        with self.assertRaises(ValueError):
-            instance = BaseModel(**wrongDict)
             
     def test_attributes(self):
         """ Tests the types of the attributes """

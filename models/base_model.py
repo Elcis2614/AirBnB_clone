@@ -10,18 +10,13 @@ class BaseModel():
     """ This is the parent class of all the classes of this project """
 
     def __init__(self, *args, **kwargs):
-        
-        if kwargs:
-            if (set(kwargs) == set(["id", "created_at","updated_at", "__class__"])): 
-                if(kwargs["__class__"] == "BaseModel"): 
-                    self.id = kwargs["id"]
-                    self.created_at = d.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
-                    self.updated_at = d.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
 
-                else:
-                    raise TypeError("Wrong class name")    
-            else :
-                raise ValueError("Invalid Dictionary")
+        if kwargs :
+            for key in kwargs :
+               if (key != 'created_at' and key != 'updated_at'):
+                   self.__dict__[key] = kwargs[key]
+               else :
+                   self.__dict__[key] = d.strptime(kwargs[key], '%Y-%m-%dT%H:%M:%S.%f')
 
         elif not (kwargs or args) :
             self.id = str(uuid.uuid4())
