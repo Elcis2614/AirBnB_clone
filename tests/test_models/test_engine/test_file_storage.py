@@ -40,7 +40,7 @@ class testEngine(unittest.TestCase):
                     self.assertIsNotNone(mFile.read())
 
     """def test_reload(self):
-        the reload() method opens the file incase it exists but doesnt do anything incase the file is not present
+        """ the reload() method opens the file incase it exists but doesnt do anything incase the file is not present"""
         self.instance1.reload()
         objects = self.instance1.all()
         self.assertIsNotNone(objects)
