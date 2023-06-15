@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """ This file contains the base_model class """
 
-
 import uuid
 from datetime import datetime as d
 from models import storage
@@ -14,7 +13,8 @@ class BaseModel():
         if kwargs :
             for key in kwargs :
                if (key != 'created_at' and key != 'updated_at'):
-                   self.__dict__[key] = kwargs[key]
+                   if (key != '__class__') :
+                       self.__dict__[key] = kwargs[key]
                else :
                    self.__dict__[key] = d.strptime(kwargs[key], '%Y-%m-%dT%H:%M:%S.%f')
 

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Contains the coe for the console"""
+"""Constitutes the entry point for the console"""
 
 if __name__ == "__main__":
     from models.hbnb import Hbnb
