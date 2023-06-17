@@ -4,6 +4,7 @@
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.user import User
 from os.path import isfile
 
 class testEngine(unittest.TestCase):
@@ -30,17 +31,31 @@ class testEngine(unittest.TestCase):
         self.assertIn(key, dictBaseM)
         self.assertTrue(dictBaseM[key] == instanceBaseM)
 
-    def test_save(self):
-        """ the save() method """
-        if isfile(FileStorage._FileStorage__file_path):
-            self.instance1.save()
-            with open(FileStorage._FileStorage__file_path,'r', encoding = 'utf-8') as mFile:
-                #the save() method saved a string in the file
-                if (self.instance1.all() != []):
-                    self.assertIsNotNone(mFile.read())
+    def tstSerial(self, obj): 
+        """ tests the reload() and save method for the obj """
+        obj.save()
 
+        mDict = self.instance1.all()
+        self.assertEqual(mDict["{}.{}".format(obj.__class__.__name__, obj.id)], obj)
+        mDict["{}.{}".format(obj.__class__.__name__, obj.id)] = None
+        self.assertIsNone(mDict["{}.{}".format(obj.__class__.__name__, obj.id)])
+        self.instance1.reload()
+        self.assertTrue(mDict["{}.{}".format(obj.__class__.__name__, obj.id)].to_dict() == obj.to_dict())
+
+    def test_serialBaseModel(self):
+        """ tests the reload() method and save """
+        instanceBaseM = BaseModel()
+        self.tstSerial(instanceBaseM)
+        del(instanceBaseM)
+
+    def test_serialUser(self):
+        """ tests the serialization and deserialisation of User object """
+        user = User()
+        self.tstSerial(user)
+        del(user)
+        
     """def test_reload(self):
-        """ the reload() method opens the file incase it exists but doesnt do anything incase the file is not present"""
+        the reload() method opens the file incase it exists but doesnt do anything incase the file is not present
         self.instance1.reload()
         objects = self.instance1.all()
         self.assertIsNotNone(objects)

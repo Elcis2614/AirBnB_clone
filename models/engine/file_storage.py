@@ -34,11 +34,16 @@ class FileStorage():
         """ deserializes the JSON file to __objects (only if the JSON file exits and non-empty """
         if isfile(FileStorage.__file_path) and getsize(FileStorage.__file_path) > 1:
 
-            from models.base_model import BaseModel
-
             with  open(FileStorage.__file_path, "r", encoding='utf-8') as mFile :
                 m_objects = json.load(mFile)
                 for obj_id in m_objects.keys():
                     base_object = m_objects[obj_id]
-                    FileStorage.__objects[obj_id] = BaseModel(**base_object)
+
+                    if ('BaseModel' in obj_id.split(".")):
+                        from models.base_model import BaseModel
+                        FileStorage.__objects[obj_id] = BaseModel(**base_object)
+
+                    elif ('User' in obj_id.split(".")):
+                        from models.user import User
+                        FileStorage.__objects[obj_id] = User(**base_object)
 

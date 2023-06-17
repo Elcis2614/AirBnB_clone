@@ -39,10 +39,11 @@ class BaseModel():
     def to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__ in a given format and adds the key "class" """
         newDic = self.__dict__.copy()
-        newDic['__class__'] = "BaseModel"
+        newDic['__class__'] = self.__class__.__name__
         newDic['created_at'] = self.created_at.isoformat("T")
         newDic['updated_at'] = self.updated_at.isoformat("T")
         return (newDic)
 
     def to_json(self):
         """ Converts the objects to json object """
+        pass

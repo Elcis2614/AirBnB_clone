@@ -20,7 +20,7 @@ class Base_test(unittest.TestCase):
         self.assertIsInstance(storage, FileStorage)
 
         #storage is in the dictionary
-        self.assertIn("BaseModel.{}".format(self.base1.id), storage.all())
+        self.assertIn("{}.{}".format("BaseModel",self.base1.id), storage.all())
 
         
         #making sure the file is loaded in __object
@@ -67,7 +67,7 @@ class Base_test(unittest.TestCase):
 
     def test___str__(self):
         """ tests the output when the object is printed """
-        self.assertEqual(self.base1.__str__(), "[{}] ({}) {}".format("BaseModel",self.base1.id,self.base1.__dict__))
+        self.assertEqual(self.base1.__str__(), "[{}] ({}) {}".format("BaseModel", self.base1.id,self.base1.__dict__))
         
     def test_to_json(self):
         pass
