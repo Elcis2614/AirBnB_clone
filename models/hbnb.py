@@ -39,8 +39,8 @@ class Hbnb(cmd.Cmd):
         elif (line == 'BaseModel') :
             instance = BaseModel()
 
-        elif (line == 'User') :
-            instance = User()
+        #elif (line == 'User') :
+         #   instance = User()
 
         else :
             print ("** class doesn't exist **")
