@@ -10,11 +10,7 @@ from os import system
 class Hbnb(cmd.Cmd):
     """ the interprator module """
     prompt = '(hbnb) '
-
-    def __init__(self):
-
-        self.__classes = ['BaseModel', 'User']
-        super().__init__()
+    __classes = ['BaseModel', 'User']
 
     def do_quit(self, line):
         """ Provides a proper exit to the interpreter """
@@ -39,8 +35,8 @@ class Hbnb(cmd.Cmd):
         elif (line == 'BaseModel') :
             instance = BaseModel()
 
-        #elif (line == 'User') :
-         #   instance = User()
+        elif (line == 'User') :
+            instance = User()
 
         else :
             print ("** class doesn't exist **")
@@ -54,7 +50,7 @@ class Hbnb(cmd.Cmd):
         if (len(argv) == 0) :
             print ("** class name missing **")
 
-        elif (argv[0] in self.__classes) :
+        elif (argv[0] in Hbnb.__classes) :
             try :
                 instId = "{}.{}".format(argv[0], argv[1])
                 
@@ -126,7 +122,7 @@ class Hbnb(cmd.Cmd):
 
         objects = storage.all()
 
-        if (line in self.__classes):
+        if (line in Hbnb.__classes):
             for key in objects.keys() :
                 if (line in key.split(".")):
                     print(objects[key])
