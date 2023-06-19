@@ -10,3 +10,7 @@ class TestAmenity(Com_test, unittest.TestCase):
     
     def setUp(self):
         self.obj = Amenity()
+
+    def test_attributes(self):
+        """ test the attribute of the object """
+        self.assertTrue(self.obj.name == "")

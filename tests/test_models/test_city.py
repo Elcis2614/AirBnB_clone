@@ -9,4 +9,9 @@ class TestCity(Com_test, unittest.TestCase):
     """ Methods for the tests """
 
     def setUp(self):
+        """ sets up the object for testing """
         self.obj = City()
+
+    def test_attributes(self):
+        """ tests object attributes """
+        self.assertTrue(self.obj.state_id == self.obj.name == "")

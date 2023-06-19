@@ -12,4 +12,8 @@ class TestState(Com_test ,unittest.TestCase):
     def setUp(self):
         """ sets up the object to be used """
         self.obj = State()
+
+    def test_attributes(self):
+        """ tests the attibute of the object """
+        self.assertTrue(self.obj.name == "")
         

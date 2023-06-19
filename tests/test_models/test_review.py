@@ -12,3 +12,7 @@ class TestReview(Com_test, unittest.TestCase):
     def setUp(self):
         """ Sets up the obj used for testing """
         self.obj = Review()
+
+    def test_attributes(self):
+        """ tests the attribute of the object """
+        self.assertTrue(self.obj.place_id == self.obj.user_id == self.obj.text == "")
