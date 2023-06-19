@@ -5,6 +5,11 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.review import Review
+from models.amenity import Amenity
+from models.city import City
 from os.path import isfile
 
 class testEngine(unittest.TestCase):
@@ -46,13 +51,21 @@ class testEngine(unittest.TestCase):
         """ tests the reload() method and save """
         instanceBaseM = BaseModel()
         self.tstSerial(instanceBaseM)
-        del(instanceBaseM)
 
     def test_serialUser(self):
         """ tests the serialization and deserialisation of User object """
         user = User()
         self.tstSerial(user)
-        del(user)
+
+    def test_serialPlace(self):
+        """ test the serialization and deserialisation of Place objects """
+        place = Place()
+        self.tstSerial(place)
+
+    def test_serialState(self):
+        """ Test serialization and dese. of State objects """
+        state = State()
+        self.tstSerial(state)
         
     """def test_reload(self):
         the reload() method opens the file incase it exists but doesnt do anything incase the file is not present

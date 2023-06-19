@@ -46,3 +46,19 @@ class FileStorage():
                     elif ('User' in obj_id.split(".")):
                         from models.user import User
                         FileStorage.__objects[obj_id] = User(**base_object)
+
+                    elif ('Place' in obj_id.split(".")):
+                        from models.place import Place
+                        FileStorage.__objects[obj_id] = Place(**base_object)
+                    
+                    elif ('State' in obj_id.split(".")):
+                        from models.state import State
+                        FileStorage.__objects[obj_id] = State(**base_object)
+
+                    elif ('Amenity' in obj_id.split(".")):
+                        from models.amenity import Amenity
+                        FileStorage.__objects[obj_id] = Amenity(**base_object)
+                    
+                    elif ('City' in obj_id.split(".")):
+                        from models.city import City
+                        FileStorage.__objects[obj_id] = City(**base_object)

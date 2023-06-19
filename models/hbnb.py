@@ -4,13 +4,18 @@
 import cmd
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.review import Review
+from models.amenity import Amenity
+from models.city import City
 from models import storage
 from os import system
 
 class Hbnb(cmd.Cmd):
     """ the interprator module """
     prompt = '(hbnb) '
-    __classes = ['BaseModel', 'User']
+    __classes = ['BaseModel', 'User', 'City', 'State', 'Place', 'Amenity', 'Review']
 
     def do_quit(self, line):
         """ Provides a proper exit to the interpreter """
@@ -24,6 +29,30 @@ class Hbnb(cmd.Cmd):
         """ Clears the screen """
         system('clear')
 
+    def createInst(self, name, **kwargs) :
+        """ Returns an instance based on the class name """
+
+        if (name == 'BaseModel') :
+            return BaseModel(**kwargs)
+
+        elif (name == 'User') :
+            return User(**kwargs)
+
+        elif (name == 'City') :
+            return City(**kwargs)
+
+        elif (name == 'State') :
+            return State(**kwargs)
+
+        elif (name == 'Amenity') :
+            return Amenity(**kwargs)
+
+        elif (name == 'Review') :
+            return Review(**kwargs)
+
+        elif (name == 'Place') :
+            return Place(**kwargs)
+
     def do_create(self, line):
         """ Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id """
         instance = None
@@ -32,18 +61,13 @@ class Hbnb(cmd.Cmd):
             print ("** class name missing **")
             return
 
-        elif (line == 'BaseModel') :
-            instance = BaseModel()
-
-        elif (line == 'User') :
-            instance = User()
-
-        else :
+        elif line not in Hbnb.__classes :
             print ("** class doesn't exist **")
             return
-
-        instance.save()
-        print(instance.id)
+        else :
+            instance = self.createInst(line)
+            instance.save()
+            print(instance.id)
     
     def __objectExists(self, argv):
         """ Checks if the object exits in the FileStorage.__dict """
@@ -87,14 +111,8 @@ class Hbnb(cmd.Cmd):
                     new_value = self.get_value(' '.join(args[3:]))
                     new_dict = objects[key].to_dict()
                     new_dict[attr] = new_value
-                
-                    if (args[0] == "BaseModel") :
-                        objects[key] = BaseModel(**new_dict)
-                    elif (args[0] ==  "User" ) :
-                        objects[key] = User(**new_dict)
-                
-                    objects[key].save()
-                
+                    objects[key] = self.createInst(args[0], **new_dict)
+
                 except IndexError : 
                     print ("** value missing **")
             except IndexError :

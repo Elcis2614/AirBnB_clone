@@ -8,4 +8,4 @@ class TestPlace(Com_test, unittest.TestCase):
     
     def setUp(self):
         """ Sets up the obj to be used for testings """
-        self.obj = Place()
+        self.obj = Place() 
