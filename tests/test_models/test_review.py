@@ -1,11 +1,14 @@
-""" Contains test class for the review class """
+""" Contains TestReview class """
 
 
 import unittest
+from models.review import Review
+from tests.test_models.common_test import Com_test
 
 
-class TestState(unittest.TestCase):
+class TestReview(Com_test, unittest.TestCase):
     """ Contains methods to perform the tests"""
-    def test_save(self):
-        """Test the save method"""
-        pass
+
+    def setUp(self):
+        """ Sets up the obj used for testing """
+        self.obj = Review()

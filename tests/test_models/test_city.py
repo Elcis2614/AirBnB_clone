@@ -2,10 +2,11 @@
 
 
 import unittest
+from models.city import City
+from tests.test_models.common_test import Com_test
 
+class TestCity(Com_test, unittest.TestCase):
+    """ Methods for the tests """
 
-class TestCity(unittest.TestCase):
-    """ Methods for the tests"""
-    def test_save(self):
-        """ tests the save method """
-        pass
+    def setUp(self):
+        self.obj = City()

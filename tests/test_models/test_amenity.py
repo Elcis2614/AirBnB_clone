@@ -2,10 +2,11 @@
 
 
 import unittest
+from models.amenity import Amenity
+from tests.test_models.common_test import Com_test
 
-
-class TestAmenity(unittest.TestCase):
+class TestAmenity(Com_test, unittest.TestCase):
     """ nethods to perform the tests"""
-    def test_save(self):
-        """ Tests the save method from the usper class"""
-        pass
+    
+    def setUp(self):
+        self.obj = Amenity()

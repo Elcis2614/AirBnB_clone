@@ -46,4 +46,3 @@ class FileStorage():
                     elif ('User' in obj_id.split(".")):
                         from models.user import User
                         FileStorage.__objects[obj_id] = User(**base_object)
-
