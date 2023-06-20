@@ -151,5 +151,20 @@ class Hbnb(cmd.Cmd):
         else :
             print ("** class doesn't exist **")
 
+    def default(self, line):
+        """ Overides the defaut method to capture the command """
+        args = line.split('.')
+
+        if (len(args) == 2 and args[1][-2:] == '()') :
+            cmd = " ".join([args[1].replace('()',''), args[0]])
+            self.onecmd(cmd)
+
+        else :
+            self.stdout.write('*** Unknown syntax: %s\n'%line)
+
+
+    def do_sam(self, arg):
+        print("Function executed : {}".format(arg))       
+
     def emptyline(self):
         """Overrides the parent class method"""

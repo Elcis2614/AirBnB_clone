@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
-t = ['a', 'e', 'i', 'o', 'u']
-s = ''.join(t)
-print(s)
+t = "samxy"
+s = "salut"
+x = " ".join([s, t])
+print(t.split('a')[1][-2:])
