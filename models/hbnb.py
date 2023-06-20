@@ -171,14 +171,21 @@ class Hbnb(cmd.Cmd):
             if (args[1] == 'count()'):
                 self.count(args[0])
                 return
-           
+         
             cmd = " ".join([args[1].replace('()',''), args[0]])
+            print(cmd)
             self.onecmd(cmd)
 
         elif (len(args) == 2 and re.search(pattern, line)):
             indx_cmd = args[1].index('(')
             cmd = args[1][:indx_cmd]
             m_id = args[1][(indx_cmd + 2) : -2]
+            if ',' in m_id :
+                m_id = m_id.split(',')
+                for i in range(len(m_id)):
+                    m_id[i] = m_id[i].replace('"','').strip()
+                m_id = ' '.join(m_id)
+
             self.onecmd(' '.join([cmd, args[0], m_id]))
 
         else:
