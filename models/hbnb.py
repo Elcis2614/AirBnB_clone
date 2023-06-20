@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.city import City
 from models import storage
 from os import system
+import re
 
 class Hbnb(cmd.Cmd):
     """ the interprator module """
@@ -151,20 +152,37 @@ class Hbnb(cmd.Cmd):
         else :
             print ("** class doesn't exist **")
 
+
+    def count(self, obj):
+        """ Returns the number of instances of a class """
+        objects = storage.all()
+        nb = 0
+        for key in objects.keys() :
+            if (key.split('.')[0] == obj) :
+                nb += 1
+        print(nb)
+
     def default(self, line):
         """ Overides the defaut method to capture the command """
         args = line.split('.')
+        pattern = "^[A-Za-z]*\.[a-z]*\(\".*\"\)$"
 
         if (len(args) == 2 and args[1][-2:] == '()') :
+            if (args[1] == 'count()'):
+                self.count(args[0])
+                return
+           
             cmd = " ".join([args[1].replace('()',''), args[0]])
             self.onecmd(cmd)
 
-        else :
+        elif (len(args) == 2 and re.search(pattern, line)):
+            indx_cmd = args[1].index('(')
+            cmd = args[1][:indx_cmd]
+            m_id = args[1][(indx_cmd + 2) : -2]
+            self.onecmd(' '.join([cmd, args[0], m_id]))
+
+        else:
             self.stdout.write('*** Unknown syntax: %s\n'%line)
-
-
-    def do_sam(self, arg):
-        print("Function executed : {}".format(arg))       
 
     def emptyline(self):
         """Overrides the parent class method"""

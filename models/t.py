@@ -1,6 +1,10 @@
 #!/usr/bin/python3
+import re
 
-t = "samxy"
-s = "salut"
-x = " ".join([s, t])
-print(t.split('a')[1][-2:])
+def f(txt):
+    s = "^[A-Za-z]*\.[a-z]*\(\".*\"\)$"
+    x = re.search(s,txt)
+    if (x):
+        print("Found")
+s = input()
+f(s)
