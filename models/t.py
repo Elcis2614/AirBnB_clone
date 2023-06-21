@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 import re
-
-x = "Sa\"lu\"t"
-print(x.replace('"', ''))
+import json
+x = input().split(';')[-1]
+print(x)
+s = json.loads(x)
+print(type(s))
+print(s)

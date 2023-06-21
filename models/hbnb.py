@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.city import City
 from models import storage
 from os import system
+import json
 import re
 
 class Hbnb(cmd.Cmd):
@@ -165,7 +166,12 @@ class Hbnb(cmd.Cmd):
     def default(self, line):
         """ Overides the defaut method to capture the command """
         args = line.split('.')
+
+        #matches every command of the form class_name.command( "id", "attribute name", "attribute value")
         pattern = "^[A-Za-z]*\.[a-z]*\(\".*\"\)$"
+
+        #matches the update command of the form class_name.update("id", {dictionary representation})
+        pattern2 = "^[A-Za-z]*\.[a-z]+\(\".+\",.+\{.*\}\)$"
 
         if (len(args) == 2 and args[1][-2:] == '()') :
             if (args[1] == 'count()'):
@@ -185,8 +191,16 @@ class Hbnb(cmd.Cmd):
                 for i in range(len(m_id)):
                     m_id[i] = m_id[i].replace('"','').strip()
                 m_id = ' '.join(m_id)
-
             self.onecmd(' '.join([cmd, args[0], m_id]))
+
+        elif (len(args) == 2 and re.search(pattern2, line)):
+            cmd = args[1][:args[1].index('(')]
+            m_id = args[1][(args[1].index('(') + 2) : (args[1].index(',') - 1)]
+            m_dict = line[line.index('{') : -1]
+            m_dict = m_dict.replace("'", '"')
+            m_dict = json.loads(m_dict)
+            for key in m_dict.keys():
+                self.onecmd(' '.join([cmd, args[0], m_id, key, str(m_dict[key])]))
 
         else:
             self.stdout.write('*** Unknown syntax: %s\n'%line)
