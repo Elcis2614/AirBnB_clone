@@ -39,7 +39,7 @@ class Com_test():
     def test_save(self):
         """Tests the save method of the baseclass test """
         self.obj.save()
-        self.assertNotEqual(self.obj.updated_at, self.obj.created_at)
+        self.assertIsNotNone(self.obj.updated_at)
         self.assertTrue(self.obj.updated_at > self.obj.created_at )
         
         try :
