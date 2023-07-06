@@ -40,6 +40,8 @@ class Com_test():
         """Tests the save method of the baseclass test """
         self.obj.save()
         self.assertNotEqual(self.obj.updated_at, self.obj.created_at)
+        self.assertTrue(self.obj.updated_at > self.obj.created_at )
+        
         try :
             with open(FileStorage._FileStorage__file_path, 'r', encoding = 'utf-8') as mFile:
                 self.assertIsNotNone(mFile.read())
